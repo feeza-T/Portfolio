@@ -156,18 +156,36 @@ export const site = {
       { when: 'B.Sc.', title: 'AUST — Computer Science & Engineering', text: 'CGPA 3.496 · graduating November 2026.' },
       { when: 'Award', title: '1st Place — UAP Hackathon', text: 'Won the frontend track with a hand-built HTML & vanilla CSS interface.' },
       { when: 'Sep 2026', title: 'Product Management 101', text: 'Simplilearn SkillUp certification.' },
-      { when: 'Oct 2026', title: 'Product case studies', text: 'Atlas People and ClassLoop — designed, documented and published.' },
+      { when: 'Oct 2026', title: 'Product case studies', text: 'Agreed, Atlas People and ClassLoop — designed, documented and published.' },
     ],
   },
 
   // ---- Beyond code: product design & PM case studies ----
+  // tools: a plain 'Name' shows a tag; { name, href } makes that tag open its own link.
   caseStudies: [
+    {
+      title: 'Agreed',
+      kind: 'Product Design · SaaS',
+      date: 'Oct 2026',
+      text: 'A client-approval SaaS that turns out-of-scope requests into clear change proposals — showing the impact on price and delivery date, with a no-account mobile link where the client decides before any extra work begins.',
+      tools: [
+        { name: 'Figma', href: 'https://www.figma.com/design/74jJ8AB26grBhiRGTlOw3x/Agreed-%E2%80%94-Product-Design' },
+        'Design System',
+        'Prototyping',
+      ],
+      href: 'https://www.behance.net/gallery/257172293/Agreed-A-Scope-Change-Approval-SaaS-for-Freelancers',
+      where: 'Behance',
+    },
     {
       title: 'Atlas People',
       kind: 'Product Design',
       date: 'Oct 2026',
       text: 'A dual-role time-off experience for HR and employees — AI-assisted first draft, then a human-refined redesign with five documented UX decisions and a Figma Variables design system.',
-      tools: ['Figma', 'Variables', 'Prototyping'],
+      tools: [
+        { name: 'Figma', href: 'https://www.figma.com/design/AcSm5HvI77k4ysSQ9TZRRE/EMS-%E2%80%94-Product-Designer-Assessment?node-id=2002-789&t=CVOUtBlDqSOfDVOb-1' }, // paste your Atlas People Figma link here
+        'Variables',
+        'Prototyping',
+      ],
       href: 'https://www.behance.net/gallery/257012763/Atlas-People-Designing-Time-Off-for-HR-and-Employees',
       where: 'Behance',
     },
@@ -176,7 +194,14 @@ export const site = {
       kind: 'Product Management',
       date: 'Sep 2026',
       text: 'Scoped a guest-booking MVP for a local turf: customer and manager flows, 20 wireframes, 8 user stories and 28 traced UAT test cases.',
-      tools: ['Figma', 'Google Sheets', 'Notion'],
+      tools: [
+        { name: 'Figma', href: 'https://www.figma.com/design/kcaxPpcOqo07Nsk8w1UX5X/Turf-Ground-Booking-System-%E2%80%94-Customer-User-Flows?node-id=18-2' }, // paste your Turf Figma link here
+        { name: 'Google Sheets', href: 'https://docs.google.com/spreadsheets/u/1/d/1mT79Srsb0cOCLm7dcKu0ShL3WU6ga1F-xuWaq7HAgzs/edit?usp=sharing' }, // paste your UAT / test-case sheet link here
+        {
+          name: 'Notion',
+          href: 'https://sphenoid-grape-a4a.notion.site/Turf-Ground-Booking-System-PM-Case-Study-3f79b0e2726881b48ba2d69ade48a198',
+        },
+      ],
       href: 'https://sphenoid-grape-a4a.notion.site/Turf-Ground-Booking-System-PM-Case-Study-3f79b0e2726881b48ba2d69ade48a198',
       where: 'Notion',
     },
@@ -185,7 +210,13 @@ export const site = {
       kind: 'Concept Product',
       date: 'Oct 2026',
       text: 'One place for class cancellations, room changes and makeup classes — impact/effort prioritisation, success metrics and four high-fidelity mobile screens.',
-      tools: ['Figma', 'Notion'],
+      tools: [
+        { name: 'Figma', href: 'https://www.figma.com/design/GjqpdXI6uMe4oVIZYKyuwK/ClassLoop-%E2%80%94-Class-Updates-Concept?t=CVOUtBlDqSOfDVOb-1' }, // paste your ClassLoop Figma link here
+        {
+          name: 'Notion',
+          href: 'https://sphenoid-grape-a4a.notion.site/ClassLoop-Concept-Product-Case-Study-3f79b0e272688127958bf1f0666fcde2',
+        },
+      ],
       href: 'https://sphenoid-grape-a4a.notion.site/ClassLoop-Concept-Product-Case-Study-3f79b0e272688127958bf1f0666fcde2',
       where: 'Notion',
     },

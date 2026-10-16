@@ -81,30 +81,42 @@ export default function Beyond() {
 
       <div className="beyond__row">
         {site.caseStudies.map((c, i) => (
-          <a
-            key={c.title}
-            className="case"
-            href={c.href}
-            target="_blank"
-            rel="noreferrer"
-            data-cursor={`Open ${c.where}`}
-          >
+          <article key={c.title} className="case" data-cursor={`Open ${c.where}`}>
             <span className="case__top">
               <span className="case__num">0{i + 1}</span>
               <span className="case__kind">{c.kind}</span>
               <span className="case__date">{c.date}</span>
             </span>
-            <span className="case__title">{c.title}</span>
-            <span className="case__text">{c.text}</span>
-            <span className="case__tools">
-              {c.tools.map((t) => (
-                <span key={t}>{t}</span>
-              ))}
-            </span>
-            <span className="case__cta">
+            <h3 className="case__title">{c.title}</h3>
+            <p className="case__text">{c.text}</p>
+            <ul className="case__tools">
+              {c.tools.map((t) => {
+                // a tool is either 'Figma' (plain tag) or { name: 'Figma', href: '…' } (its own link)
+                const tool = typeof t === 'string' ? { name: t } : t
+                return (
+                  <li key={tool.name}>
+                    {tool.href ? (
+                      <a
+                        className="case__tool case__tool--link"
+                        href={tool.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        data-cursor={`Open ${tool.name}`}
+                      >
+                        {tool.name} <span aria-hidden="true">↗</span>
+                      </a>
+                    ) : (
+                      <span className="case__tool">{tool.name}</span>
+                    )}
+                  </li>
+                )
+              })}
+            </ul>
+            {/* this link covers the whole card; tool links sit above it */}
+            <a className="case__cta" href={c.href} target="_blank" rel="noreferrer">
               View on {c.where} <span aria-hidden="true">↗</span>
-            </span>
-          </a>
+            </a>
+          </article>
         ))}
       </div>
     </section>

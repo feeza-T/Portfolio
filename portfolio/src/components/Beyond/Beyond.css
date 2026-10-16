@@ -85,6 +85,8 @@
   gap: var(--col-gap);
 }
 .case {
+  position: relative;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -102,7 +104,7 @@
     box-shadow 0.5s;
 }
 .case:hover,
-.case:focus-visible {
+.case:has(:focus-visible) {
   background: var(--gold);
   border-color: var(--gold);
   color: var(--black);
@@ -136,7 +138,7 @@
   opacity: 0.7;
 }
 .case__title {
-  margin-top: 6px;
+  margin: 6px 0 0;
   font-family: var(--display);
   font-stretch: 118%;
   font-weight: 800;
@@ -146,6 +148,7 @@
   text-transform: uppercase;
 }
 .case__text {
+  margin: 0;
   flex: 1;
   font-size: 14px;
   line-height: 1.55;
@@ -156,8 +159,14 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
-.case__tools span {
+.case__tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   padding: 5px 9px;
   border: 1px solid currentColor;
   border-radius: 999px;
@@ -166,13 +175,39 @@
   text-transform: uppercase;
   opacity: 0.85;
 }
+/* tool links sit above the card-wide link so they open their own page */
+.case__tool--link {
+  position: relative;
+  z-index: 2;
+  opacity: 1;
+  transition: background 0.3s, color 0.3s, scale 0.3s var(--ease-out);
+}
+.case__tool--link:hover,
+.case__tool--link:focus-visible {
+  background: var(--black);
+  border-color: var(--black);
+  color: var(--gold);
+  scale: 1.08;
+  outline: none;
+}
 .case__cta {
+  display: block;
   padding-top: 12px;
   border-top: 1px solid currentColor;
   font: 600 11px/1 var(--mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   border-color: color-mix(in srgb, currentColor 25%, transparent);
+}
+.case__cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+.case__cta:focus-visible {
+  outline: none;
 }
 
 @media (max-width: 1100px) {
