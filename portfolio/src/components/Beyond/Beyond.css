@@ -1,0 +1,198 @@
+.beyond {
+  position: relative;
+  padding: clamp(90px, 12vw, 170px) var(--gutter) clamp(80px, 10vw, 140px);
+  background: var(--black);
+  border-top: 1px solid var(--line);
+}
+
+.beyond__head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-items: end;
+  margin-bottom: clamp(40px, 6vw, 80px);
+}
+.beyond__title {
+  grid-column: 1 / 8;
+  position: relative;
+  margin: 0;
+  font-family: var(--display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: clamp(60px, 11vw, 180px);
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+.beyond__idx {
+  position: absolute;
+  top: -28px;
+  left: 0;
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+.beyond__title-line {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-top: 0.04em;
+}
+.beyond__title-line--outline {
+  padding-left: 0.9em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--white);
+}
+.beyond__title.is-ready .beyond__title-line {
+  overflow: visible;
+}
+.beyond__dot {
+  color: var(--gold);
+  -webkit-text-stroke: 0;
+}
+.beyond__aside {
+  grid-column: 8 / 13;
+  display: grid;
+  gap: 16px;
+  padding-bottom: 10px;
+}
+.beyond__aside p {
+  margin: 0;
+  color: rgba(242, 240, 236, 0.82);
+}
+.beyond__note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white) !important;
+}
+.beyond__link {
+  display: inline-flex;
+  gap: 8px;
+  font: 600 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ---------- case cards ---------- */
+.beyond__row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--col-gap);
+}
+.case {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  background:
+    radial-gradient(90% 70% at 100% 0%, rgba(229, 9, 20, 0.14), transparent 70%),
+    #111011;
+  transition:
+    background-color 0.45s,
+    color 0.45s,
+    border-color 0.45s,
+    translate 0.5s var(--ease-out),
+    box-shadow 0.5s;
+}
+.case:hover,
+.case:focus-visible {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--black);
+  translate: 0 -8px;
+  box-shadow: 0 30px 60px -30px rgba(254, 224, 139, 0.45);
+  outline: none;
+}
+.case__top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 500 10.5px/1.2 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.case__num {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+}
+.case__kind {
+  min-width: 0;
+}
+.case__date {
+  margin-left: auto;
+  flex: none;
+  opacity: 0.7;
+}
+.case__title {
+  margin-top: 6px;
+  font-family: var(--display);
+  font-stretch: 118%;
+  font-weight: 800;
+  font-size: clamp(22px, 1.9vw, 30px);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+.case__text {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.55;
+  color: inherit;
+  opacity: 0.85;
+}
+.case__tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.case__tools span {
+  padding: 5px 9px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font: 500 10px/1 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.case__cta {
+  padding-top: 12px;
+  border-top: 1px solid currentColor;
+  font: 600 11px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-color: color-mix(in srgb, currentColor 25%, transparent);
+}
+
+@media (max-width: 1100px) {
+  .beyond__row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 900px) {
+  .beyond__title {
+    grid-column: 1 / -1;
+    font-size: clamp(52px, 17vw, 130px);
+  }
+  .beyond__title-line--outline {
+    -webkit-text-stroke-width: 1px;
+  }
+  .beyond__aside {
+    grid-column: 1 / -1;
+    margin-top: 28px;
+  }
+  .beyond__row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

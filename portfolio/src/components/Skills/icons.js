@@ -1,0 +1,38 @@
+// Only the icons we use are imported, so the bundle stays small.
+import {
+  siCss,
+  siExpress,
+  siFigma,
+  siFirebase,
+  siFramer,
+  siGit,
+  siGithub,
+  siGsap,
+  siHtml5,
+  siJavascript,
+  siMongodb,
+  siNodedotjs,
+  siReact,
+  siTailwindcss,
+  siThreedotjs,
+  siVite,
+} from 'simple-icons'
+
+export const icons = {
+  siCss,
+  siExpress,
+  siFigma,
+  siFirebase,
+  siFramer,
+  siGit,
+  siGithub,
+  siGsap,
+  siHtml5,
+  siJavascript,
+  siMongodb,
+  siNodedotjs,
+  siReact,
+  siTailwindcss,
+  siThreedotjs,
+  siVite,
+}

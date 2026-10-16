@@ -1,0 +1,62 @@
+.cmail {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+.cmail__copy {
+  all: unset;
+  box-sizing: border-box;
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  padding: 18px 22px;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.02);
+  transition: background 0.35s, border-color 0.35s, color 0.35s, scale 0.35s var(--ease-out);
+}
+.cmail__copy:hover,
+.cmail__copy:focus-visible {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--black);
+  scale: 1.02;
+}
+.cmail__copy.is-copied {
+  background: var(--red);
+  border-color: var(--red);
+  color: var(--white);
+}
+.cmail__addr {
+  font-family: var(--display);
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: clamp(16px, 1.7vw, 24px);
+  letter-spacing: -0.02em;
+  word-break: break-all;
+}
+.cmail__state {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+.cmail__open {
+  display: inline-flex;
+  gap: 8px;
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.cmail__open:hover {
+  color: var(--white);
+}
+.cmail--big .cmail__addr {
+  font-size: clamp(20px, 3.4vw, 52px);
+}
+.cmail--big .cmail__copy {
+  padding: clamp(18px, 2.4vw, 32px) clamp(20px, 2.8vw, 40px);
+  border-radius: 26px;
+}

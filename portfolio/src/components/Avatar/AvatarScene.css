@@ -1,0 +1,289 @@
+.ava {
+  --fig-h: min(70svh, 640px);
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--black);
+  isolation: isolate;
+}
+
+/* Stage light behind her */
+.ava__spot {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(42% 55% at 50% 72%, rgba(229, 9, 20, 0.28), rgba(58, 7, 17, 0.35) 45%, rgba(8, 8, 8, 0) 75%),
+    radial-gradient(70% 40% at 50% 100%, rgba(58, 7, 17, 0.7), rgba(8, 8, 8, 0) 70%);
+}
+
+.ava__marquee {
+  position: absolute;
+  inset: 50% 0 auto;
+  translate: 0 -50%;
+  z-index: -1;
+  pointer-events: none;
+}
+.ava__marquee-inner {
+  display: flex;
+  width: max-content;
+  font-family: var(--display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: clamp(120px, 22vw, 340px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(242, 240, 236, 0.09);
+}
+
+.ava__head {
+  position: absolute;
+  top: 96px;
+  left: var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font: 500 11px/1.45 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ava__idx {
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+.ava__steps {
+  position: absolute;
+  left: var(--gutter);
+  top: 50%;
+  translate: 0 -50%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 14px;
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.ava__steps li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: color 0.4s, translate 0.5s var(--ease-out), scale 0.5s var(--ease-out);
+}
+.ava__step-num {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  font-size: 10px;
+  transition: background 0.4s, color 0.4s, border-color 0.4s;
+}
+.ava__steps li.is-done {
+  color: rgba(242, 240, 236, 0.4);
+}
+.ava__steps li.is-active {
+  color: var(--white);
+  translate: 10px 0;
+  scale: 1.12;
+  transform-origin: left center;
+}
+.ava__steps li.is-active .ava__step-num {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--black);
+}
+
+.ava__word {
+  position: absolute;
+  right: var(--gutter);
+  top: 50%;
+  translate: 0 -50%;
+  overflow: hidden;
+  font-family: var(--display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: clamp(56px, 9vw, 150px);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  color: var(--red);
+  padding: 0.05em 0;
+}
+.ava__word span {
+  display: block;
+}
+
+/* ---------- avatar ---------- */
+.ava__stage {
+  position: absolute;
+  left: 50%;
+  bottom: 4svh;
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ava__parallax {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.ava__tap {
+  all: unset;
+  display: block;
+  cursor: pointer;
+  border-radius: 40px;
+}
+.ava__tap:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 8px;
+}
+.ava__bob,
+.ava__breathe {
+  transform-origin: 50% 100%;
+}
+.ava__figure {
+  position: relative;
+  height: var(--fig-h);
+  aspect-ratio: 400 / 760;
+  transform-origin: 50% 100%;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.55));
+}
+.ava__figure img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity, transform;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.ava__shadow {
+  width: calc(var(--fig-h) * 0.42);
+  height: 18px;
+  margin-top: -16px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  opacity: 0.55;
+}
+
+/* speech bubble sits by her head */
+.ava__bubble {
+  position: absolute;
+  left: calc(50% + var(--fig-h) * 0.18);
+  top: calc(var(--fig-h) * 0.02);
+  z-index: 3;
+  max-width: 230px;
+  padding: 14px 18px;
+  border-radius: 20px 20px 20px 4px;
+  background: var(--white);
+  color: var(--black);
+  font: 600 15px/1.3 var(--sans);
+  box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.6);
+  transform-origin: 0% 100%;
+  white-space: normal;
+  width: max-content;
+}
+.ava__bubble::after {
+  content: '';
+  position: absolute;
+  left: -2px;
+  bottom: -9px;
+  width: 18px;
+  height: 18px;
+  background: var(--white);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.ava__bar {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: 22px;
+  height: 2px;
+  background: var(--line);
+}
+.ava__bar-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* ---------- tablet / mobile ---------- */
+@media (max-width: 900px) {
+  .ava {
+    --fig-h: min(52svh, 500px);
+  }
+  .ava__head {
+    top: 84px;
+  }
+  .ava__steps {
+    top: auto;
+    bottom: 44px;
+    left: 0;
+    right: 0;
+    translate: none;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+  .ava__steps li {
+    font-size: 0;
+    gap: 0;
+  }
+  .ava__steps li.is-active {
+    translate: none;
+    scale: 1.15;
+  }
+  .ava__step-num {
+    width: 26px;
+    height: 26px;
+    font-size: 9px;
+  }
+  .ava__word {
+    top: 84px;
+    translate: none;
+    font-size: clamp(44px, 14vw, 90px);
+  }
+  .ava__stage {
+    bottom: 88px;
+  }
+  .ava__head {
+    max-width: 50%;
+  }
+  .ava__bubble {
+    left: 50%;
+    right: auto;
+    top: calc(var(--fig-h) * -0.16);
+    translate: -50% 0;
+    max-width: min(240px, 80vw);
+    font-size: 13px;
+    padding: 11px 14px;
+    text-align: center;
+    border-radius: 18px;
+    transform-origin: 50% 100%;
+  }
+  .ava__bubble::after {
+    left: 50%;
+    bottom: -8px;
+    width: 16px;
+    height: 10px;
+    translate: -50% 0;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+  }
+}

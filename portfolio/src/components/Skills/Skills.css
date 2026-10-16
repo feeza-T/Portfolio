@@ -1,0 +1,203 @@
+.skills {
+  position: relative;
+  padding: clamp(80px, 12vw, 160px) 0 clamp(60px, 9vw, 120px);
+  background:
+    radial-gradient(60% 50% at 15% 0%, rgba(58, 7, 17, 0.55), rgba(8, 8, 8, 0) 70%),
+    var(--black);
+  overflow: hidden;
+}
+
+.skills__head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+  align-items: end;
+  padding: 0 var(--gutter);
+  margin-bottom: clamp(40px, 6vw, 80px);
+}
+
+.skills__title {
+  grid-column: 1 / 8;
+  position: relative;
+  margin: 0;
+  font-family: var(--display);
+  font-stretch: 125%;
+  font-weight: 800;
+  font-size: clamp(64px, 12vw, 190px);
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+.skills__idx {
+  position: absolute;
+  top: -28px;
+  left: 0;
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--gold);
+}
+.skills__title-line {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  padding-top: 0.04em;
+}
+.skills__title-line--red {
+  color: var(--red);
+  padding-left: 0.9em;
+}
+.skills__title.is-ready .skills__title-line {
+  overflow: visible;
+}
+.skills__dot {
+  color: var(--gold);
+}
+
+.skills__aside {
+  grid-column: 9 / 13;
+  display: grid;
+  gap: 18px;
+  padding-bottom: 10px;
+}
+.skills__aside p {
+  margin: 0;
+  max-width: 34ch;
+  color: rgba(242, 240, 236, 0.8);
+}
+.skills__hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted) !important;
+}
+
+/* ---------- floating ribbons ---------- */
+.skills__stage {
+  position: relative;
+  height: clamp(260px, 30vw, 380px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.skills__float {
+  position: relative;
+  flex: none;
+  width: 112%;
+  margin-left: -6%;
+  animation: bob 6s ease-in-out infinite;
+}
+@keyframes bob {
+  50% { translate: 0 -10px; }
+}
+
+.ribbon {
+  position: relative;
+  overflow: hidden;
+  padding: 14px 0;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.8);
+}
+.ribbon--red {
+  background: var(--red);
+  transform: rotate(-4deg);
+  z-index: 2;
+}
+.ribbon--gold {
+  background: var(--gold);
+  transform: rotate(3.5deg);
+  margin-top: -18px;
+  z-index: 1;
+}
+
+.ribbon__track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.ribbon__item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 24px);
+  padding-right: clamp(12px, 1.6vw, 24px);
+}
+.ribbon__sep {
+  font-size: 18px;
+  opacity: 0.7;
+}
+.ribbon--red .ribbon__sep { color: var(--gold); }
+.ribbon--gold .ribbon__sep { color: var(--red); }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 18px 8px 8px;
+  border-radius: 999px;
+  font-family: var(--display);
+  font-stretch: 112%;
+  font-weight: 700;
+  font-size: clamp(18px, 2vw, 28px);
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: default;
+  transition: background 0.3s, color 0.3s;
+}
+.ribbon--red .chip { color: var(--white); }
+.ribbon--gold .chip { color: var(--black); }
+.chip:hover {
+  background: var(--black);
+  color: var(--white);
+}
+
+.chip__icon {
+  display: grid;
+  place-items: center;
+  width: clamp(34px, 3.4vw, 46px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(8, 8, 8, 0.88);
+  transition: background 0.3s;
+}
+.chip__icon svg {
+  width: 52%;
+  height: 52%;
+  fill: var(--white);
+  transition: fill 0.3s;
+}
+.chip:hover .chip__icon {
+  background: var(--white);
+}
+.chip:hover .chip__icon svg {
+  fill: var(--brand);
+}
+.chip__letter {
+  font: 800 16px/1 var(--display);
+  color: var(--gold);
+}
+.chip:hover .chip__letter {
+  color: var(--brand);
+}
+
+@media (max-width: 900px) {
+  .skills__title {
+    grid-column: 1 / -1;
+    font-size: clamp(56px, 20vw, 150px);
+  }
+  .skills__aside {
+    grid-column: 1 / -1;
+    margin-top: 28px;
+  }
+  .skills__stage {
+    height: 230px;
+  }
+  .ribbon {
+    padding: 10px 0;
+  }
+  .chip {
+    gap: 8px;
+    padding: 6px 14px 6px 6px;
+  }
+}
