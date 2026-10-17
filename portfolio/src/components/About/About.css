@@ -79,7 +79,14 @@
 .prints {
   grid-column: 8 / 13;
   grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+/* only the polaroids are absolutely positioned, inside this stack */
+.prints__stack {
   position: relative;
+  flex: 1;
   min-height: clamp(380px, 38vw, 560px);
 }
 .print {
@@ -136,14 +143,28 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
+/* hint is normal flow now, so no polaroid can sit on top of it */
 .prints__hint {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  position: relative;
+  z-index: 10;
+  margin: 0;
+  text-align: right;
   font: 500 10.5px/1 var(--mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--muted);
+}
+.prints__hint-tap {
+  display: none;
+}
+@media (pointer: coarse) {
+  .prints__hint-hover {
+    display: none;
+  }
+  .prints__hint-tap {
+    display: inline;
+  }
 }
 
 /* ---------- flip cards ---------- */
@@ -369,9 +390,14 @@
     font-size: clamp(56px, 18vw, 130px);
   }
   .prints {
-    min-height: 118vw;
     max-width: 520px;
     order: 3;
+  }
+  /* height follows the width, so the stack never gets cut off or too tall */
+  .prints__stack {
+    flex: none;
+    min-height: 0;
+    aspect-ratio: 1 / 1.2;
   }
   .about__statement {
     order: 2;
@@ -379,7 +405,9 @@
   .print {
     width: 58%;
   }
+  /* moved right so the "Tea-stall days" caption stays readable */
   .print--c {
+    left: 40%;
     width: 46%;
   }
   .about__modes {

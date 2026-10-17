@@ -13,6 +13,15 @@ export const site = {
   intro:
     'I build fast, interactive web apps with React and the MERN stack — then bring them to life with motion, GSAP and Three.js.',
   resumeUrl: '/resume.pdf', // put your CV in /public/resume.pdf
+  // Add this inside your existing `site` object in config/site.js.
+// Put the PDFs in /public/resumes/ so these URLs work.
+// Keep your old `resumeUrl` too (used as a fallback).
+
+resumes: [
+  { label: 'Frontend Developer', url: '/resumes/takwa-frontend.pdf' },
+  { label: 'Product Design',     url: '/resumes/takwa-product-design.pdf' },
+  { label: 'Product Management', url: '/resumes/takwa-pm.pdf' },
+],
   email: 'takwafeeza84@gmail.com',
   socials: [
     { label: 'GitHub', href: 'https://github.com/feeza-T' },

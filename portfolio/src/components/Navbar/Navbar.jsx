@@ -18,15 +18,23 @@ export function RollText({ children }) {
   )
 }
 
+// Falls back to the single resumeUrl if you haven't added `resumes` to site config.
+const getResumes = () =>
+  site.resumes?.length ? site.resumes : [{ label: 'Résumé', url: site.resumeUrl }]
+
 export default function Navbar({ play }) {
   const root = useRef(null)
+  const resumeRef = useRef(null)
   const [open, setOpen] = useState(false)
   const [hidden, setHidden] = useState(false)
+  const [resumeOpen, setResumeOpen] = useState(false)
   const [spy, setSpy] = useState('Home')
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const onProjects = pathname.startsWith('/projects')
   const active = onProjects ? 'Work' : spy
+  const resumes = getResumes()
+  const multiResume = resumes.length > 1
 
   // Scroll-spy (home page): whichever section covers the middle of the screen is active.
   // "Work" is lit by the Selected Work section on home, and always on the /projects page.
@@ -58,11 +66,27 @@ export default function Navbar({ play }) {
     const onScroll = () => {
       const y = window.scrollY
       setHidden(y > 140 && y > last)
+      if (y !== last) setResumeOpen(false)
       last = y
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  // Close the résumé dropdown on outside click / Escape.
+  useEffect(() => {
+    if (!resumeOpen) return
+    const onDown = (e) => {
+      if (resumeRef.current && !resumeRef.current.contains(e.target)) setResumeOpen(false)
+    }
+    const onKey = (e) => e.key === 'Escape' && setResumeOpen(false)
+    document.addEventListener('pointerdown', onDown)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('pointerdown', onDown)
+      document.removeEventListener('keydown', onKey)
+    }
+  }, [resumeOpen])
 
   // Entrance once the loader hands over.
   useGSAP(
@@ -96,10 +120,17 @@ export default function Navbar({ play }) {
             { yPercent: 0, duration: 0.8, ease: 'expo.out', stagger: 0.06 },
             '-=0.25',
           )
+          .fromTo(
+            q('.menu__extra'),
+            { autoAlpha: 0, y: 16 },
+            { autoAlpha: 1, y: 0, duration: 0.6, ease: 'expo.out' },
+            '-=0.5',
+          )
       } else if (q('.menu')[0] && gsap.getProperty(q('.menu')[0], 'autoAlpha') > 0) {
         gsap
           .timeline({ onComplete: () => lockScroll(false) })
-          .to(q('.menu__link'), { yPercent: -110, duration: 0.4, ease: 'expo.in', stagger: 0.03 })
+          .to(q('.menu__extra'), { autoAlpha: 0, duration: 0.2 })
+          .to(q('.menu__link'), { yPercent: -110, duration: 0.4, ease: 'expo.in', stagger: 0.03 }, '<')
           .to(q('.menu__bg'), { yPercent: -100, duration: 0.6, ease: 'expo.inOut' }, '-=0.15')
           .set(q('.menu'), { autoAlpha: 0 })
       }
@@ -160,18 +191,58 @@ export default function Navbar({ play }) {
           <span className="nav__item nav__status">
             <span className="dot" aria-hidden="true" /> Open to work
           </span>
-          <a className="nav__item nav__cta" href={site.resumeUrl} target="_blank" rel="noreferrer">
-            <RollText>Résumé</RollText>
-            <span aria-hidden="true">↗</span>
-          </a>
+
+          {/* Résumé: single link, or a dropdown when you have several versions (desktop only) */}
+          <div className="nav__item nav__resume" ref={resumeRef}>
+            {multiResume ? (
+              <>
+                <button
+                  type="button"
+                  className="nav__cta"
+                  aria-expanded={resumeOpen}
+                  aria-haspopup="menu"
+                  onClick={() => setResumeOpen((o) => !o)}
+                >
+                  <span>Résumé</span>
+                  <span className={`nav__caret ${resumeOpen ? 'is-open' : ''}`} aria-hidden="true">↓</span>
+                </button>
+                <ul className={`resume-menu ${resumeOpen ? 'is-open' : ''}`} role="menu">
+                  {resumes.map((r) => (
+                    <li key={r.label} role="none">
+                      <a
+                        role="menuitem"
+                        href={r.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={() => setResumeOpen(false)}
+                      >
+                        <span>{r.label}</span>
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <a className="nav__cta" href={resumes[0].url} target="_blank" rel="noreferrer">
+                <RollText>Résumé</RollText>
+                <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
+
           <button
             type="button"
             className="nav__item nav__menu-btn"
             aria-expanded={open}
             aria-controls="mobile-menu"
+            aria-label={open ? 'Close menu' : 'Open menu'}
             onClick={() => setOpen((o) => !o)}
           >
-            {open ? 'Close' : 'Menu'}
+            <span className="burger" aria-hidden="true">
+              <span />
+              <span />
+            </span>
           </button>
         </div>
       </div>
@@ -193,7 +264,26 @@ export default function Navbar({ play }) {
               </a>
             </div>
           ))}
-          <p className="menu__foot">
+
+          <div className="menu__extra menu__resumes">
+            <p className="menu__label">Résumé</p>
+            {resumes.map((r) => (
+              <a
+                key={r.label}
+                href={r.url}
+                target="_blank"
+                rel="noreferrer"
+                className="menu__resume"
+                tabIndex={open ? 0 : -1}
+                onClick={() => setOpen(false)}
+              >
+                <span>{r.label}</span>
+                <span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </div>
+
+          <p className="menu__extra menu__foot">
             <span className="dot" aria-hidden="true" /> {site.status}
           </p>
         </nav>

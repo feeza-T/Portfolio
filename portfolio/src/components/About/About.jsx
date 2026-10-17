@@ -10,8 +10,8 @@ import wave from '../../assets/avatar/wave.webp'
 import './About.css'
 
 const PRINTS = [
-  { src: polka, caption: 'Tea-stall days', cls: 'print--a' },
-  { src: saree, caption: 'In red', cls: 'print--b' },
+  { src: polka, caption: 'Hi Hellooo...', cls: 'print--a' },
+  { src: saree, caption: '', cls: 'print--b' },
   { src: wave, caption: 'My avatar', cls: 'print--c', sticker: true },
 ]
 
@@ -152,17 +152,23 @@ export default function About() {
         </h2>
 
         <div className="prints" aria-label="Photos of Takwa">
-          {PRINTS.map((p) => (
-            <figure key={p.caption} className={`print ${p.cls}`} tabIndex={0} data-cursor="Straighten">
-              <div className={`print__img ${p.sticker ? 'print__img--sticker' : ''}`}>
-                <img src={p.src} alt={p.caption} loading="lazy" draggable="false" />
-              </div>
-              <figcaption>{p.caption}</figcaption>
-            </figure>
-          ))}
-          <span className="prints__hint" aria-hidden="true">
-            Hover to straighten
-          </span>
+          {/* the absolutely-positioned polaroids live in their own stack... */}
+          <div className="prints__stack">
+            {PRINTS.map((p) => (
+              <figure key={p.caption} className={`print ${p.cls}`} tabIndex={0} data-cursor="Straighten">
+                <div className={`print__img ${p.sticker ? 'print__img--sticker' : ''}`}>
+                  <img src={p.src} alt={p.caption} loading="lazy" draggable="false" />
+                </div>
+                <figcaption>{p.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
+
+          {/* ...and the hint sits in normal flow underneath, so nothing can cover it */}
+          <p className="prints__hint" aria-hidden="true">
+            <span className="prints__hint-hover">Hover to straighten</span>
+            <span className="prints__hint-tap">Tap to straighten</span>
+          </p>
         </div>
 
         <p className="about__statement">{about.statement}</p>
